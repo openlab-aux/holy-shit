@@ -1,0 +1,22 @@
+opam-version: "1.2"
+maintainer: "sternenseemann <post@lukasepple.de>"
+authors: [ "sternenseemann <post@lukasepple.de>" ]
+license: "AGPL-3"
+homepage: "https://github.com/openlab-aux/holy-shit"
+dev-repo: "https://github.com/openlab-aux/holy-shit.git"
+bug-reports: "https://github.com/openlab-aux/holy-shit/issues"
+doc: "https://github.com/openlab-aux/holy-shit"
+
+build: [
+  [ "ocaml" "pkg/pkg.ml" "build" "--pinned" "%{pinned}%" ]
+]
+
+depends: [
+  "ocamlfind" {build}
+  "ocamlbuild" {build}
+  "topkg" {build}
+  "ptime"
+  "cow"
+]
+
+available: [ ocaml-version >= "4.02.3" ]

@@ -1,0 +1,4 @@
+true  : bin_annot, safe_string
+true  : package(cow ptime)
+"src" : include
+

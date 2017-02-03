@@ -1,0 +1,8 @@
+version = "%%VERSION_NUM%%"
+description = "quote publishing service"
+requires = "cow ptime"
+archive(byte) = "holy_shit.cma"
+archive(native) = "holy_shit.cmxa"
+plugin(byte) = "holy_shit.cma"
+plugin(native) = "holy_shit.cmxs"
+exists_if = "holy_shit.cma"
