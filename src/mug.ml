@@ -21,7 +21,7 @@ let is_var str = if String.length str >= 2
   else false
 
 (* assumes is_var str == true *)
-let var_name str = String.sub str 1 (String.length str - 1)
+let var_name str = String.sub str 1 (String.length str - 2)
 
 let combine_match_result (match1, map1) (match2, map2) =
   (match1 && match2, StringMap.union (fun _ oldv newv -> (Some newv)) map1 map2)
