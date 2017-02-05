@@ -17,6 +17,8 @@ depends: [
   "topkg" {build}
   "ptime"
   "cow"
+  "re"
+  "cohttp"
 ]
 
 available: [ ocaml-version >= "4.02.3" ]

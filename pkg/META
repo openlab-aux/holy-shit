@@ -1,6 +1,6 @@
 version = "%%VERSION_NUM%%"
 description = "quote publishing service"
-requires = "cow ptime"
+requires = "cow ptime cohttp.lwt re"
 archive(byte) = "holy_shit.cma"
 archive(native) = "holy_shit.cmxa"
 plugin(byte) = "holy_shit.cma"
