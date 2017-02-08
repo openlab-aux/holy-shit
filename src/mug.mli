@@ -32,11 +32,19 @@ module StringMap :
 
 type var_map = string StringMap.t
 
-type handler =
-    var_map ->
-    Cohttp_lwt.Request.t ->
-    Cohttp_lwt_body.t ->
-    Cohttp.Code.status_code * Cohttp.Header.t * Cohttp_lwt_body.t
+type request = {
+    vars : var_map;
+    req  : Cohttp.Request.t;
+    body : Cohttp_lwt_body.t;
+  }
+
+type response = {
+  status  : Cohttp.Code.status_code;
+  headers : Cohttp.Header.t;
+  body    : Cohttp_lwt_body.t;
+}
+
+type handler = request -> response
 
 type route = string * string * handler
 

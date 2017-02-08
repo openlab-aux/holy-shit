@@ -4,13 +4,22 @@ open Cohttp
 
 type quote = Quote of Ptime.t * string * string
 
-let stub _ _ _ = (`OK, (Header.init ()), Cohttp_lwt_body.of_string "Not implemented yet")
+let stub _ =
+  { status = `OK; headers = (Header.init ());
+  body = Cohttp_lwt_body.of_string "Not implemented yet" }
+
+let timestamp e = {
+  status  = `OK;
+  headers = Header.init ();
+  body    = Cohttp_lwt_body.of_string
+    ("timestamp: " ^ (StringMap.find "timestamp" e.vars))
+  }
 
 let routes:route list =
   [ ("/about", "GET", stub)
   ; ("/quotes/", "GET", stub)
   ; ("/quotes/post", "POST", stub)
-  ; ("/quotes/<timestamp>", "GET", stub)
+  ; ("/quotes/<timestamp>", "GET", timestamp)
   ; ("/quotes/<timestamp>", "DELETE", stub)
   ]
 

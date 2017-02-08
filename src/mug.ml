@@ -5,8 +5,19 @@ module StringMap = Map.Make(String)
 
 type var_map = string StringMap.t
 
-type handler = var_map -> Request.t -> Cohttp_lwt_body.t
-  -> Cohttp.Code.status_code * Cohttp.Header.t * Cohttp_lwt_body.t
+type request = {
+    vars : var_map;
+    req  : Request.t;
+    body : Cohttp_lwt_body.t;
+  }
+
+type response = {
+  status  : Cohttp.Code.status_code;
+  headers : Cohttp.Header.t;
+  body    : Cohttp_lwt_body.t;
+}
+
+type handler = request -> response
 
 type route = string * string * handler
 
@@ -20,7 +31,6 @@ let is_var str = if String.length str >= 2
   then String.get str 0 == '<' && String.get str (String.length str - 1) = '>'
   else false
 
-(* assumes is_var str == true *)
 let var_name str = String.sub str 1 (String.length str - 2)
 
 let combine_match_result (match1, map1) (match2, map2) =
@@ -54,9 +64,13 @@ let rec router routes _conn req body =
                                   |> List.filter (fun str -> String.equal str "" |> not)
                                   |> List.tl in
        let (rt_match, vars) = match_route route uri in
+       let env              = { vars = vars; req = req; body = body; } in
        if String.equal rt_meth req_meth && rt_match
-       then let (status, headers, body) = handler vars req body in
-            Cohttp_lwt_unix.Server.respond ~headers ~status ~body ()
+       then let resp = handler env in
+            Cohttp_lwt_unix.Server.respond
+              ~headers:resp.headers
+              ~status:resp.status
+              ~body:resp.body ()
        else router (List.tl routes) _conn req body
 
 let server routes = Cohttp_lwt_unix.Server.make ~callback:(router routes) ()
