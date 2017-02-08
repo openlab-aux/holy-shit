@@ -1,4 +1,4 @@
 true  : bin_annot, safe_string
-true  : package(cow ptime cohttp.lwt re.str)
+true  : package(ptime cohttp.lwt re.str ezjsonm)
 "src" : include
 

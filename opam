@@ -16,7 +16,7 @@ depends: [
   "ocamlbuild" {build}
   "topkg" {build}
   "ptime"
-  "cow"
+  "ezjsonm"
   "re"
   "cohttp"
 ]
