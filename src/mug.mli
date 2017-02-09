@@ -52,7 +52,7 @@ val route_path : route -> string
 val route_meth : route -> string
 val route_handler : route -> handler
 
-val router : route list -> 'a -> Cohttp_lwt.Request.t -> Cohttp_lwt_body.t
-  -> (Cohttp.Response.t * Cohttp_lwt_body.t) Lwt.t
+val router : route list -> 'a -> Cohttp_lwt.Request.t
+  -> Cohttp_lwt_body.t -> (Cohttp.Response.t * Cohttp_lwt_body.t) Lwt.t
 
 val run_mug : route list -> int -> unit
