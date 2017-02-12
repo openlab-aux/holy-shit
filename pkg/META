@@ -1,6 +1,6 @@
 version = "%%VERSION_NUM%%"
 description = "quote publishing service"
-requires = "ptime cohttp.lwt re ezjsonm"
+requires = "ptime ezjsonm omnibus"
 archive(byte) = "holy_shit.cma"
 archive(native) = "holy_shit.cmxa"
 plugin(byte) = "holy_shit.cma"

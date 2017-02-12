@@ -1,13 +1,11 @@
 open Cohttp_lwt
-open Cohttp
 
-open Mug
+open Omnibus
 open Holy_shit_endpoints
 
-type quote = Quote of Ptime.t * string * string
 
 let stub _ =
-  { status = `OK; headers = (Header.init ());
+  { status = `OK; headers = (Cohttp.Header.init ());
   body = Cohttp_lwt_body.of_string "Not implemented yet" }
 
 let routes:route list =
@@ -16,7 +14,7 @@ let routes:route list =
     ("/quotes/", "GET", stub);
     ("/quotes/post", "POST", stub);
     ("/quotes/<timestamp>", "DELETE", stub);
-    Mug_rest.route_of_endpoint single_quote;
+    Omnibus_rest.route_of_endpoint single_quote;
   ]
 
-let _ = run_mug routes 8080
+let _ = run_omnibus routes 8080
